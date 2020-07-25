@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Set;
 
 @Component
-public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
@@ -25,7 +25,5 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         boolean isAdmin = user.getRoles().stream().anyMatch(x -> x.getName().contains("ROLE_ADMIN"));
         String redirect = isAdmin ? "/users" : "/user";
         httpServletResponse.sendRedirect(redirect);
-
-
     }
 }

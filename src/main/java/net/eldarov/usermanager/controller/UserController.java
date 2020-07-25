@@ -1,6 +1,5 @@
 package net.eldarov.usermanager.controller;
-
-
+import net.eldarov.usermanager.config.LoginSuccessHandler;
 import net.eldarov.usermanager.model.User;
 import net.eldarov.usermanager.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +8,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
+import net.eldarov.usermanager.model.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Set;
+
 @Controller
-public class UserController {
+public class UserController extends LoginSuccessHandler {
 
     private final UserServiceImpl userService;
 
     @Autowired
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
+    }
+
+
+    @GetMapping("/user")
+    public String userPage(Model model){
+
+        return "user";
     }
 
     @GetMapping("/users")
